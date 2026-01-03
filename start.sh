@@ -105,6 +105,11 @@ echo ""
 echo -e "${YELLOW}[3/6] Checking database...${NC}"
 cd "$CHATBOT_DIR/scripts"
 python3 create_db.py
+
+if [ -f "load_manual_questions.py" ]; then
+    echo -e "${YELLOW}Loading manual questions...${NC}"
+    python3 load_manual_questions.py
+fi
 echo -e "${GREEN}✓ Database setup complete${NC}"
 echo ""
 
