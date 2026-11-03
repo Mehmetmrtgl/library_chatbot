@@ -136,15 +136,21 @@ library_chatbot/
     git clone git@github.com:Mehmetmrtgl/library_chatbot.git
     cd library_chatbot
     ```
-2. **First-time setup (recommended)** – installs Python deps, creates DB, installs npm packages, and starts everything:
+2. **Configure the backend environment** – copy the template and fill in the database credentials, a random `SECRET_KEY`, and the admin login:
+   ```bash
+   cp backend/.env.example backend/.env
+   python -c "import secrets; print(secrets.token_hex(32))"   # paste as SECRET_KEY
+   ```
+   The backend refuses to start without `SECRET_KEY`.
+3. **First-time setup (recommended)** – installs Python deps, creates DB, installs npm packages, and starts everything:
    ```bash
    ./start.sh
    ```
-3. **Subsequent runs** – reuse existing environments and start services quickly:
+4. **Subsequent runs** – reuse existing environments and start services quickly:
    ```bash
    ./start_app.sh
    ```
-4. **Check component status** (optional):
+5. **Check component status** (optional):
    ```bash
    ./check_status.sh
    ```
