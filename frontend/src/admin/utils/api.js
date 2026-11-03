@@ -1,11 +1,14 @@
 // src/admin/utils/api.js
+import { authHeaders } from "./auth";
 
 // Backend adresini buraya sabitliyoruz
 const API_BASE_URL = "http://localhost:5001";
 
 export const getUnapprovedQuestions = async () => {
   try {
-    const res = await fetch(`${API_BASE_URL}/api/unapproved_questions`);
+    const res = await fetch(`${API_BASE_URL}/api/unapproved_questions`, {
+      headers: authHeaders(),
+    });
 
     if (!res.ok) {
       console.error("❌ API hatası:", res.status);
@@ -25,7 +28,7 @@ export const approveAnswer = async (questionId, answerText) => {
   try {
     const res = await fetch(`${API_BASE_URL}/api/approve_answer`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", ...authHeaders() },
       body: JSON.stringify({ question_id: questionId, answer: answerText }),
     });
     return res.ok;
@@ -38,7 +41,8 @@ export const approveAnswer = async (questionId, answerText) => {
 export const rejectAnswer = async (questionId) => {
   try {
     const res = await fetch(`${API_BASE_URL}/api/reject_answer/${questionId}`, {
-      method: "DELETE", 
+      method: "DELETE",
+      headers: authHeaders(),
     });
     return res.ok;
   } catch (error) {
@@ -51,7 +55,7 @@ export const markForEdit = async (questionId, answerText) => {
   try {
     const res = await fetch(`${API_BASE_URL}/api/mark_for_edit`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", ...authHeaders() },
       body: JSON.stringify({ question_id: questionId, answer: answerText }),
     });
     return res.ok;

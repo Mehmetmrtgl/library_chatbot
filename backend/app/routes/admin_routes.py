@@ -5,10 +5,19 @@ from sqlalchemy import func, extract
 from datetime import datetime, timedelta
 
 
+from app.auth import check_admin_credentials, issue_admin_token, require_admin
 from app.db.models import db, Question, Feedback, ChatLog, PendingQuestion
 from scripts.model_inference import generate_answer
 
 admin_bp = Blueprint("admin", __name__)
+
+
+@admin_bp.before_request
+def protect_admin_routes():
+    # Giriş endpoint'i hariç tüm admin endpoint'leri token ister
+    if request.endpoint == "admin.admin_login":
+        return None
+    return require_admin()
 
 @admin_bp.route("/api/unapproved_questions", methods=["GET"])
 def get_unapproved_questions():
@@ -273,26 +282,15 @@ def generate_alternative_answer():
 
 @admin_bp.route("/admin/login", methods=["POST"])
 def admin_login():
-    data = request.get_json()
+    data = request.get_json() or {}
     username = data.get("username")
     password = data.get("password")
 
-    env_username = os.getenv("ADMIN_USERNAME")
-    env_password = os.getenv("ADMIN_PASSWORD")
-
-    if username == env_username and password == env_password:
-        return jsonify({"status": "ok", "token": "fake-admin-token"})
+    if check_admin_credentials(username, password):
+        return jsonify({"status": "ok", "token": issue_admin_token(username)})
     else:
         return jsonify({"status": "fail"}), 401
 
-@admin_bp.route("/api/generate_alternative", methods=["POST"])
-def generate_alternative():
-    question = request.json["question"]
-    alt = generate_answer(original_question=question)
-    return jsonify({"alternative": alt})
-    
-
-    
 @admin_bp.route("/api/mark_for_edit", methods=["POST"])
 def mark_for_edit():
     data = request.get_json()

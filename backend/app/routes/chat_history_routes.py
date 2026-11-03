@@ -1,9 +1,12 @@
 # app/routes/chat_history_routes.py
 
 from flask import Blueprint, jsonify
+from app.auth import require_admin
 from app.db.models import ChatLog
 
 chat_history_bp = Blueprint("chat_history", __name__)
+# Sohbet geçmişi yalnızca admin paneline açık
+chat_history_bp.before_request(require_admin)
 
 @chat_history_bp.route("/api/chat_sessions", methods=["GET"])
 def get_chat_sessions():

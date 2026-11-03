@@ -27,7 +27,10 @@ def create_app():
         f"postgresql://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}"
     )
     
-    app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "varsayilan-guvensiz-key")
+    secret_key = os.getenv("SECRET_KEY")
+    if not secret_key:
+        raise RuntimeError("SECRET_KEY ortam değişkeni tanımlı değil (.env.example dosyasına bakın).")
+    app.config["SECRET_KEY"] = secret_key
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     db.init_app(app)
@@ -43,4 +46,6 @@ def create_app():
 
 if __name__ == "__main__":
     flask_app = create_app()
-    flask_app.run(debug=True, use_reloader=False, host="0.0.0.0", port=5001)
+    # Debug modu ağa açıkken kod çalıştırmaya izin verir; yalnızca FLASK_DEBUG=1 ile açılır
+    debug = os.getenv("FLASK_DEBUG") == "1"
+    flask_app.run(debug=debug, use_reloader=False, host="0.0.0.0", port=5001)

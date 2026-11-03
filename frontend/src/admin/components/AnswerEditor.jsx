@@ -24,7 +24,7 @@ const AnswerEditor = () => {
     const updated = editStates[id];
     if (!updated) return;
 
-    axios.post("http://localhost:5000/api/update_answer", {
+    axios.post("http://localhost:5001/api/update_answer", {
       question_id: id,
       answer: updated.answer,
     })

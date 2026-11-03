@@ -20,7 +20,7 @@ const ChatHistory = () => {
     if (!selectedSession) return;
 
     axios
-      .get(`http://localhost:5000/api/chat_history/${selectedSession}`)
+      .get(`http://localhost:5001/api/chat_history/${selectedSession}`)
       .then((res) => setHistory(res.data.history))
       .catch((err) => console.error("Geçmiş alınamadı:", err));
   }, [selectedSession]);
