@@ -1,0 +1,220 @@
+.app-shell {
+  position: relative;
+  min-height: 100vh;
+  padding: clamp(24px, 5vw, 64px);
+  background: radial-gradient(circle at top, rgba(107, 60, 233, 0.32), transparent 45%),
+    linear-gradient(135deg, #020617 0%, #0f172a 60%, #111827 100%);
+  overflow: hidden;
+}
+
+.ambient-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(147, 197, 253, 0.35), transparent 45%),
+    radial-gradient(circle at 80% 0%, rgba(180, 138, 255, 0.4), transparent 40%);
+  filter: blur(90px);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.app-hero {
+  position: relative;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: clamp(20px, 4vw, 40px);
+  background: rgba(15, 23, 42, 0.82);
+  color: #e2e8f0;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 30px 80px rgba(2, 6, 23, 0.6);
+  margin-bottom: 32px;
+}
+
+.brand-block {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.brand-mark {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f472b6, #a855f7);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #fff;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  color: rgba(226, 232, 240, 0.75);
+  margin: 0 0 12px;
+}
+
+.brand-block h1 {
+  margin: 0 0 8px;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+}
+
+.subtitle {
+  margin: 0;
+  color: rgba(248, 250, 252, 0.8);
+}
+
+.primary-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.primary-nav button {
+  border: 1px solid rgba(226, 232, 240, 0.2);
+  background: transparent;
+  color: inherit;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.primary-nav button:hover {
+  border-color: #e2e8f0;
+  color: #fff;
+}
+
+.primary-nav button.active {
+  background: linear-gradient(120deg, var(--brand-500), var(--brand-600));
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 10px 18px rgba(107, 60, 233, 0.35);
+}
+
+.app-main {
+  position: relative;
+  color: var(--ink-900);
+}
+
+.panel-card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: clamp(20px, 3vw, 32px);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.panel-card--admin {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.panel-heading {
+  padding: clamp(16px, 2.4vw, 28px);
+  border-radius: 24px;
+  background: radial-gradient(circle at top left, rgba(14, 165, 233, 0.3), transparent 55%),
+    linear-gradient(140deg, #0f172a, #1e1b4b 60%, #0f172a);
+  border: 1px solid rgba(248, 250, 252, 0.12);
+  color: #f8fafc;
+}
+
+.panel-heading .panel-eyebrow {
+  color: #38bdf8;
+  letter-spacing: 0.35em;
+}
+
+.panel-heading .panel-title {
+  margin: 4px 0 8px;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: #fbbf24;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+}
+
+.panel-heading .panel-description {
+  margin: 0;
+  color: #e2e8f0;
+}
+
+.panel-body {
+  background: #ffffff;
+  border-radius: 26px;
+  border: 1px solid var(--border-subtle);
+  padding: clamp(12px, 2vw, 24px);
+  min-height: 520px;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-body.large-panel {
+  min-height: clamp(520px, 80vh, 900px);
+}
+
+.panel-body--admin {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  box-shadow: 0 25px 70px rgba(2, 6, 23, 0.45);
+  padding: clamp(24px, 3vw, 40px);
+}
+
+.panel-body > * {
+  flex: 1;
+  min-width: 0;
+}
+
+.empty-state {
+  background: var(--surface-muted);
+  border: 1px dashed var(--border-subtle);
+  border-radius: 18px;
+  padding: 32px;
+  text-align: center;
+  color: var(--ink-500);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+
+.empty-state h3 {
+  margin: 0;
+  color: var(--ink-700);
+}
+
+.empty-state button {
+  align-self: center;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(120deg, var(--brand-500), var(--brand-600));
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .brand-block {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .brand-mark {
+    margin-bottom: 8px;
+  }
+
+  .primary-nav {
+    justify-content: center;
+  }
+
+  .panel-body {
+    min-height: 420px;
+  }
+}

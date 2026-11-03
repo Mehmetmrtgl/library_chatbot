@@ -1,0 +1,105 @@
+/* src/components/MessageBubble.css */
+
+.message-bubble {
+  max-width: 75%;
+  margin-bottom: 8px;
+  padding: 12px;
+  border-radius: 12px;
+  clear: both;
+  /* Mesaj içindeki metnin satırlarını korumak için */
+  white-space: pre-wrap; 
+}
+
+.user-bubble {
+  background-color: #d1e7dd;
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+.bot-bubble {
+  background-color: #e2e3e5;
+  align-self: flex-start;
+  margin-right: auto;
+}
+
+.feedback-buttons {
+  margin-top: 6px;
+  text-align: right;
+}
+
+.feedback-buttons button {
+  margin-left: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* ----------------------------------------------------- */
+/* AŞAĞIDAKİLER YENİ EKLENECEK PDF KARTI STİLLERİDİR */
+/* ----------------------------------------------------- */
+
+.pdf-resource-card {
+  margin-top: 12px;
+  background-color: #f0f9ff; /* Çok açık mavi arka plan */
+  border: 1px solid #bae6fd; /* Mavi çerçeve */
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: sans-serif;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Kağıt ikonu */
+.pdf-icon {
+  font-size: 24px;
+}
+
+/* Dosya ismi ve sayfa numarası alanı */
+.pdf-details {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: hidden; /* Taşmayı önler */
+}
+
+.pdf-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0c4a6e; /* Koyu mavi yazı */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* İsim uzunsa üç nokta (...) koyar */
+}
+
+.pdf-page {
+  font-size: 11px;
+  color: #64748b; /* Gri yazı */
+  margin-top: 2px;
+}
+
+/* İndir butonu */
+.pdf-download-btn {
+  background-color: #0284c7;
+  color: white !important; /* Link rengini zorla beyaz yap */
+  text-decoration: none;
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.pdf-download-btn:hover {
+  background-color: #0369a1; /* Üzerine gelince koyulaşsın */
+}
+
+/* Mesaj metni ile PDF kartı karışmasın diye */
+.message-text {
+  margin: 0;
+  line-height: 1.5;
+}

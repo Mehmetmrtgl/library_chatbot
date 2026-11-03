@@ -1,0 +1,38 @@
+.chat-history {
+  padding: 20px;
+}
+
+.session-selector {
+  margin-bottom: 15px;
+}
+
+.history-list {
+  background: #f7f7f7;
+  padding: 15px;
+  border-radius: 8px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.history-item {
+  margin-bottom: 12px;
+}
+
+.history-item.user {
+  background-color: #e0f7fa;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.history-item.bot {
+  background-color: #f1f8e9;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.timestamp {
+  display: block;
+  font-size: 0.8em;
+  color: #666;
+  margin-top: 5px;
+}
