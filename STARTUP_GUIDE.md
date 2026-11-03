@@ -28,7 +28,7 @@ If everything is already set up, use the quick start script:
 Or manually:
 ```bash
 # Start frontend (in one terminal)
-cd chatbot_frontend/frontend
+cd frontend
 npm start
 
 # Start backend (in another terminal)
@@ -60,19 +60,19 @@ pip install -r requirements.txt
 
 ### Create Database
 ```bash
-cd chatbot/scripts
+cd backend/scripts
 python3 create_db.py
 ```
 
 ### Install Frontend Dependencies
 ```bash
-cd chatbot_frontend/frontend
+cd frontend
 npm install
 ```
 
 ### Start Frontend Application
 ```bash
-cd chatbot_frontend/frontend
+cd frontend
 npm start
 ```
 
@@ -81,8 +81,8 @@ npm start
 - **`start.sh`** - Full setup and startup (use for first time)
 - **`start_app.sh`** - Quick start (assumes everything is set up)
 - **`check_status.sh`** - Check status of all components
-- **`chatbot/activate_venv.sh`** - Activate Python virtual environment
-- **`chatbot/setup_venv.sh`** - Setup Python virtual environment only
+- **`backend/activate_venv.sh`** - Activate Python virtual environment
+- **`backend/setup_venv.sh`** - Setup Python virtual environment only
 
 ## Troubleshooting
 
@@ -94,7 +94,7 @@ npm start
 ### Database connection errors
 - Ensure PostgreSQL is running
 - Check database credentials in `.env` file
-- Run `chatbot/scripts/create_db.py` to recreate database
+- Run `backend/scripts/create_db.py` to recreate database
 
 ### Python dependencies issues
 - Make sure virtual environment is activated
@@ -102,7 +102,7 @@ npm start
 
 ### Frontend issues
 - Make sure Node.js is installed: `node --version`
-- Try: `cd chatbot_frontend/frontend && npm install`
+- Try: `cd frontend && npm install`
 - Frontend runs on http://localhost:3000 by default
 - If port 3000 is in use, React will prompt to use another port
 

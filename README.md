@@ -8,7 +8,7 @@
 
 A privacy-focused, AI-powered RAG (Retrieval-Augmented Generation) assistant for university libraries. It answers policy and research questions using local LLMs (via Ollama) by retrieving context from uploaded PDF regulations.
 
-Built with a modular **Git Submodule** architecture, allowing the backend and frontend to be developed and versioned independently.
+Backend and frontend live together in this single repository, so one commit can change both sides of an API.
 ## Table of Contents
 - [Architecture Overview](#architecture-overview)
 - [Architecture & UML Diagrams](#architecture--uml-diagrams)
@@ -23,11 +23,10 @@ Built with a modular **Git Submodule** architecture, allowing the backend and fr
 - [License](#license)
 
 ## Architecture Overview
-The repository acts as an orchestrator that pins two Git submodules:
-- **`chatbot`** – Python/Flask backend implementing LangChain-powered RAG with FAISS and Local LLM integrations.
-- **`chatbot_frontend`** – React UI that chats with the backend, streams answers, and renders PDF source popups.
-- 
-Submodules allow independent iteration of frontend and backend while keeping a single release cadence from the main repo.
+The repository contains:
+- **`backend/`** – Python/Flask backend implementing LangChain-powered RAG with FAISS and Local LLM integrations.
+- **`frontend/`** – React UI that chats with the backend, streams answers, and renders PDF source popups.
+- **`chatbot-widget/`** – Standalone embeddable chat widget.
 
 ### Tech Stack
 * **Frontend:** React 18 (Create React App), Axios, React Markdown (for rendering bot responses), Recharts (for analytics).
@@ -56,18 +55,18 @@ sequenceDiagram
     F-->>U: Render message + hoverable PDF popup
 ```
 
-### Submodule Layout (Graph)
+### Repository Layout (Graph)
 ```mermaid
 graph TD
-    A["library_chatbot (Main Repo)"] --> B["chatbot (Backend Submodule)"]
-    A --> C["chatbot_frontend (Frontend Submodule)"]
+    A["library_chatbot"] --> B["backend/ (Flask + RAG)"]
+    A --> C["frontend/ (React)"]
     style A fill:#9c979c,stroke:#333,stroke-width:2px
 ```
 
 ## Directory Structure
 ```text
 library_chatbot/
-├── chatbot/                        # [Submodule] Backend (Flask, RAG, FAISS)
+├── backend/                        # Backend (Flask, RAG, FAISS)
 │   ├── app/                        # Main application source code
 │   │   ├── chat/                   # Chat routes and logic
 │   │   └── utils.py                # RAG and utilities
@@ -78,13 +77,12 @@ library_chatbot/
 │   ├── requirements.txt            # Python dependencies
 │   └── setup_venv.sh               # Backend environment setup script
 │
-├── chatbot_frontend/               # [Submodule] Frontend Repository
-│   ├── frontend/                   # Main React Application
-│   │   ├── public/                 # Static assets
-│   │   ├── src/
-│   │   │   └── components/         # UI Components (ChatWidget, PDFPopup)
-│   │   └── package.json            # React dependencies
-│   └── chatbot-widget/             # Standalone widget build (if applicable)
+├── frontend/                       # Main React Application
+│   ├── public/                     # Static assets
+│   ├── src/
+│   │   └── components/             # UI Components (ChatWidget, PDFPopup)
+│   └── package.json                # React dependencies
+├── chatbot-widget/                 # Standalone widget build
 │
 ├── check_status.sh                 # Script to check health of services
 ├── start.sh                        # Full installation and startup script
@@ -123,20 +121,19 @@ library_chatbot/
 ## Key Features
 - **RAG Powered**: Combines LangChain, FAISS, and Local LLMs (Ollama) to ground answers in uploaded PDFs.
 - **Smart Source Citation (v0.2.0)**: Hoverable blue PDF icon reveals a polished card with filename, page number, and a download button.
-- **Modular via Git Submodules**: Backend and frontend evolve independently while the main repo manages versions.
 - **Developer-Friendly Scripts**: `start.sh` (full setup), `start_app.sh` (quick start), and `check_status.sh` (runtime diagnostics).
 - **Admin Dashboard**: Built-in analytics to track chat stats, review user feedback, and manage the knowledge base.
 
 ## Installation
-1. **Clone with submodules**
+1. **Clone the repository**
    **Option A: Using HTTPS (Recommended for most users)**
     ```bash
-    git clone --recurse-submodules https://github.com/Mehmetmrtgl/library_chatbot.git
+    git clone https://github.com/Mehmetmrtgl/library_chatbot.git
     cd library_chatbot
     ```
    **Option B: Using SSH (For developers with SSH keys)**
     ```bash
-    git clone --recurse-submodules git@github.com:Mehmetmrtgl/library_chatbot.git
+    git clone git@github.com:Mehmetmrtgl/library_chatbot.git
     cd library_chatbot
     ```
 2. **First-time setup (recommended)** – installs Python deps, creates DB, installs npm packages, and starts everything:
@@ -168,9 +165,9 @@ External contributors must target the **`dev`** branch. The `main` branch is res
 ### Workflow
 
 1.  **Fork & Clone**
-    Fork the repository and clone it locally with submodules:
+    Fork the repository and clone it locally:
     ```bash
-    git clone --recurse-submodules https://github.com/Mehmetmrtgl/library_chatbot.git
+    git clone https://github.com/Mehmetmrtgl/library_chatbot.git
     cd library_chatbot
     ```
 
@@ -198,8 +195,7 @@ External contributors must target the **`dev`** branch. The `main` branch is res
     ```
 
 4.  **Develop & Commit**
-    * Make changes in submodules (`chatbot` or `chatbot_frontend`).
-    * Commit submodule changes first, then the main repo.
+    * Make changes in `backend/` and/or `frontend/`.
     ```bash
     git add .
     git commit -m "feat: added new amazing feature"
@@ -220,11 +216,11 @@ sequenceDiagram
 
     Note over Contributor, Main: Phase 1: Setup
     Contributor->>Main: Fork repository on GitHub
-    Contributor->>Contributor: git clone --recursive <fork-url>
+    Contributor->>Contributor: git clone <fork-url>
     Contributor->>Contributor: git checkout -b my-feature dev
 
     Note over Contributor: Phase 2: Work
-    Contributor->>Contributor: Update submodules & Write code
+    Contributor->>Contributor: Write code
     Contributor->>Contributor: git commit -m "feat: add new feature"
 
     Note over Contributor, Main: Phase 3: Submit

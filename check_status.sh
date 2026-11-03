@@ -10,8 +10,8 @@ BLUE='\033[0;34m'
 NC='\033[0m'
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-CHATBOT_DIR="$SCRIPT_DIR/chatbot"
-FRONTEND_DIR="$SCRIPT_DIR/chatbot_frontend/frontend"
+CHATBOT_DIR="$SCRIPT_DIR/backend"
+FRONTEND_DIR="$SCRIPT_DIR/frontend"
 
 echo -e "${BLUE}========================================${NC}"
 echo -e "${BLUE}  System Status Check${NC}"
