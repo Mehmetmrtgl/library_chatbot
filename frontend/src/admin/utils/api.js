@@ -1,7 +1,5 @@
 // src/admin/utils/api.js
 import { authHeaders } from "./auth";
-
-// Backend adresini buraya sabitliyoruz
 import { API_BASE_URL } from "../../config";
 
 export const getUnapprovedQuestions = async () => {
