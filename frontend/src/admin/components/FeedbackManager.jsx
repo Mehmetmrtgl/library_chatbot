@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./AdminStyles.css"; // Stil varsa buraya
+import { API_BASE_URL } from "../../config";
 
 const FeedbackManager = () => {
   const [feedbacks, setFeedbacks] = useState([]);
@@ -8,7 +9,7 @@ const FeedbackManager = () => {
   useEffect(() => {
     const fetchFeedback = async () => {
       try {
-        const res = await axios.get("http://localhost:5001/api/feedback_logs");
+        const res = await axios.get(`${API_BASE_URL}/api/feedback_logs`);
          console.log(res.data);
         setFeedbacks(res.data.feedback || []);
       } catch (error) {

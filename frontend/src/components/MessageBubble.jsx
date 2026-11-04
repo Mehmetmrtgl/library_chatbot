@@ -1,5 +1,6 @@
 import React from "react";
 import "./MessageBubble.css";
+import { API_BASE_URL } from "../config";
 
 // Dosya yolundan sadece dosya ismini (orn: yonetmelik.pdf) ayıran yardımcı fonksiyon
 const getFileName = (path) => {
@@ -12,7 +13,7 @@ function MessageBubble({ message }) {
 
   const handleFeedback = async (liked) => {
     try {
-      await fetch("http://localhost:5001/api/feedback", {
+      await fetch(`${API_BASE_URL}/api/feedback`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -41,7 +42,7 @@ function MessageBubble({ message }) {
             )}
           </div>
           <a
-            href={`http://localhost:5001/download/${getFileName(message.resource.name)}`}
+            href={`${API_BASE_URL}/download/${getFileName(message.resource.name)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="pdf-download-btn"

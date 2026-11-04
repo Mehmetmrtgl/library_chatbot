@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./components/AdminStyles.css";
+import { API_BASE_URL } from "../config";
 
 const AdminLogin = ({ onLoginSuccess }) => {
   const [username, setUsername] = useState("");
@@ -8,7 +9,7 @@ const AdminLogin = ({ onLoginSuccess }) => {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post("http://localhost:5001/admin/login", {
+      const res = await axios.post(`${API_BASE_URL}/admin/login`, {
         username,
         password,
       });

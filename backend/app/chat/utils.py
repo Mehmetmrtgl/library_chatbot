@@ -107,10 +107,6 @@ def answer_user_question(user_question: str, session_id: str = "default_user", c
         return {"status": "from_finetune", "answer": answer, "resource":None}
 
     rag_data = get_context_from_faiss(user_question)
-    # BU İKİ SATIRI KOPYALA VE TAM BURAYA YAPIŞTIR:
-    print("📢 DEBUG - RAG DATA TİPİ:", type(rag_data))
-    print("📢 DEBUG - RAG DATA İÇERİĞİ:", rag_data) 
-    # ----------------------------------------------
     rag_context = ""
     source_info = None 
 

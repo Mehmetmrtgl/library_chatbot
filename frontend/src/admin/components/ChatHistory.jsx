@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./ChatHistory.css"; // stil için opsiyonel
+import { API_BASE_URL } from "../../config";
 
 const ChatHistory = () => {
   const [sessions, setSessions] = useState([]);
@@ -10,7 +11,7 @@ const ChatHistory = () => {
   // Oturum ID’lerini al
   useEffect(() => {
     axios
-      .get("http://localhost:5001/api/chat_sessions")
+      .get(`${API_BASE_URL}/api/chat_sessions`)
       .then((res) => setSessions(res.data.sessions))
       .catch((err) => console.error("Oturumlar alınamadı:", err));
   }, []);
@@ -20,7 +21,7 @@ const ChatHistory = () => {
     if (!selectedSession) return;
 
     axios
-      .get(`http://localhost:5001/api/chat_history/${selectedSession}`)
+      .get(`${API_BASE_URL}/api/chat_history/${selectedSession}`)
       .then((res) => setHistory(res.data.history))
       .catch((err) => console.error("Geçmiş alınamadı:", err));
   }, [selectedSession]);

@@ -2,7 +2,7 @@
 import { authHeaders } from "./auth";
 
 // Backend adresini buraya sabitliyoruz
-const API_BASE_URL = "http://localhost:5001";
+import { API_BASE_URL } from "../../config";
 
 export const getUnapprovedQuestions = async () => {
   try {

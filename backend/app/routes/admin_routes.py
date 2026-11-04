@@ -11,6 +11,9 @@ from scripts.model_inference import generate_answer
 
 admin_bp = Blueprint("admin", __name__)
 
+# Export and download use the same file (relative to backend/)
+FINETUNE_EXPORT_PATH = os.path.join("data", "fine_tuning_data.jsonl")
+
 
 @admin_bp.before_request
 def protect_admin_routes():
@@ -228,7 +231,7 @@ def set_quality_score():
 @admin_bp.route("/api/export_finetune_data", methods=["POST"])
 def export_finetune_data():
     approved_qas = Question.query.filter_by(is_approved=True).all()
-    export_path = "fine_tuning_data.jsonl"
+    export_path = FINETUNE_EXPORT_PATH
 
     if not approved_qas:
         return jsonify({"status": "no_data", "message": "Onaylı veri yok."})
@@ -261,7 +264,7 @@ def export_finetune_data():
 
 @admin_bp.route("/api/download_fine_tune_data", methods=["GET"])
 def download_fine_tune_data():
-    file_path = "data/fine_tuning_data.jsonl"  
+    file_path = FINETUNE_EXPORT_PATH
     if not os.path.exists(file_path):
         return jsonify({"error": "Dosya bulunamadı"}), 404
     return send_file(file_path, as_attachment=True)

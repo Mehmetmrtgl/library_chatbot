@@ -4,6 +4,7 @@ import "./ChatWidget.css";
 import { v4 as uuidv4 } from "uuid";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import ReactMarkdown from "react-markdown";
+import { API_BASE_URL } from "../config";
 
 const session_id = uuidv4();
 
@@ -32,7 +33,7 @@ const ChatWidget = () => {
     const last = messages[messages.length - 1];
     if (messages.length === 1 || last?.role === "user") {
       axios
-        .post("http://localhost:5001/api/suggested_questions", {
+        .post(`${API_BASE_URL}/api/suggested_questions`, {
           last_question: last?.text || "",
         })
         .then((res) => {
@@ -59,7 +60,7 @@ const ChatWidget = () => {
     setAutocompleteSuggestions([]);
 
     try {
-      const res = await axios.post("http://localhost:5001/chat", {
+      const res = await axios.post(`${API_BASE_URL}/chat`, {
         question,
         chat_history: newMessages.map(({ role, text }) => ({ role, text })),
         session_id,
@@ -105,7 +106,7 @@ const ChatWidget = () => {
 
   const sendFeedback = async (question_id, isLiked) => {
     try {
-      await axios.post("http://localhost:5001/api/feedback", {
+      await axios.post(`${API_BASE_URL}/api/feedback`, {
         question_id,
         is_liked: isLiked,
         session_id,
@@ -122,7 +123,7 @@ const ChatWidget = () => {
       return;
     }
     try {
-      const res = await axios.post("http://localhost:5001/api/autocomplete", {
+      const res = await axios.post(`${API_BASE_URL}/api/autocomplete`, {
         prefix: text,
       });
       setAutocompleteSuggestions(res.data.suggestions || []);
@@ -168,7 +169,7 @@ const ChatWidget = () => {
                     )}
                   </div>
                   <a
-                    href={`http://localhost:5001/download/${getFileName(msg.resource.name)}`}
+                    href={`${API_BASE_URL}/download/${getFileName(msg.resource.name)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="pdf-download-btn"

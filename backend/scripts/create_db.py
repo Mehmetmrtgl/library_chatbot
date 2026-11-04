@@ -1,14 +1,19 @@
+import os
+
 import psycopg2
+from dotenv import load_dotenv
 from psycopg2 import sql
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
-# Bağlantı Ayarları
-DB_NAME = "hu_chatbot2"
+# Bağlantı ayarları backend/.env dosyasından okunur (bkz. .env.example)
+load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".env"))
+
+DB_NAME = os.getenv("DB_NAME", "hu_chatbot2")
 DB_CONFIG = {
-    "host": "localhost",
-    "port": "5432",
-    "user": "postgres",
-    "password": "123456"
+    "host": os.getenv("DB_HOST", "localhost"),
+    "port": os.getenv("DB_PORT", "5432"),
+    "user": os.getenv("DB_USER", "postgres"),
+    "password": os.getenv("DB_PASSWORD", ""),
 }
 
 def create_everything():

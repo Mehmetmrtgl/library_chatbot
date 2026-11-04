@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./AdminStyles.css";
 import {
+import { API_BASE_URL } from "../../config";
   BarChart,
   Bar,
   LineChart,
@@ -24,7 +25,7 @@ const AnalyticsPanel = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await axios.get("http://localhost:5001/api/stats");
+        const res = await axios.get(`${API_BASE_URL}/api/stats`);
         setStats(res.data);
       } catch (err) {
         console.error("İstatistikler alınamadı:", err);

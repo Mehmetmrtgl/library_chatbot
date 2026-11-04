@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./AdminStyles.css";
+import { API_BASE_URL } from "../../config";
 
 const AnswerEditor = () => {
   const [questions, setQuestions] = useState([]);
@@ -8,7 +9,7 @@ const AnswerEditor = () => {
   const [editedAnswer, setEditedAnswer] = useState({});  // 👈 eksik olan bu
 
   useEffect(() => {
-    axios.get("http://localhost:5001/api/questions_with_answers")
+    axios.get(`${API_BASE_URL}/api/questions_with_answers`)
       .then((res) => setQuestions(res.data.questions))
       .catch((err) => console.error("Sorular alınamadı:", err));
   }, []);
@@ -24,7 +25,7 @@ const AnswerEditor = () => {
     const updated = editStates[id];
     if (!updated) return;
 
-    axios.post("http://localhost:5001/api/update_answer", {
+    axios.post(`${API_BASE_URL}/api/update_answer`, {
       question_id: id,
       answer: updated.answer,
     })
@@ -63,7 +64,7 @@ const AnswerEditor = () => {
           const score = editedAnswer[`score-${q.id}`];
           if (!score) return alert("Skor girilmedi");
           try {
-            await axios.post("http://localhost:5001/api/set_quality_score", {
+            await axios.post(`${API_BASE_URL}/api/set_quality_score`, {
               question_id: q.id,
               score,
             });
@@ -82,7 +83,7 @@ const AnswerEditor = () => {
       <button
         onClick={async () => {
           try {
-            const res = await axios.post("http://localhost:5001/api/generate_alternative", {
+            const res = await axios.post(`${API_BASE_URL}/api/generate_alternative`, {
               question: q.question,
             });
             const altAnswer = res.data.alternative;
