@@ -51,7 +51,7 @@ backend/
     routes/           chat, admin, feedback, autocomplete, history, suggestions
   scripts/            Database setup, index building, model client, quality tools
   data/
-    pdfs/             Source documents served by /download
+    pdfs/             Source PDFs (not included, see below) served by /download
     embeddings/       FAISS indexes (RAG and autocomplete)
     finetune/         Fine-tuning and suggestion datasets
   tests/              pytest suite (runs without GPU, Ollama or a database)
@@ -115,9 +115,9 @@ npm install
 npm start
 ```
 
-### Rebuilding the indexes
+### Source documents and indexes
 
-After changing the PDFs or the suggestion data:
+The library guides used during development are copyrighted by their publishers and are not in the repository. Put your own PDFs in `backend/data/pdfs/`, then build the indexes (also needed after changing the suggestion data):
 
 ```bash
 cd backend/scripts
