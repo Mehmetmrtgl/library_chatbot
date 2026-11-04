@@ -24,7 +24,7 @@ def create_app():
 
 
     app.config["SQLALCHEMY_DATABASE_URI"] = (
-        f"postgresql://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}"
+        f"postgresql+psycopg2://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}"
     )
     
     secret_key = os.getenv("SECRET_KEY")
